@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package poo.com.sistemahotel;
+package poo.com.sistemahotel.clases;
 
 /**
  *
- * @author manue
+ * @author pc
  */
-public class SistemaHotel {
+public class GR06PY1B414SW26A {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");

@@ -1,0 +1,3 @@
+Manuel Alejandro;Sanchez Sierra;1234;1803970282;0995302939;manuelsanchez059@gmail.com;cliente
+Maria;Perez;123456;1803970266;00000000;emiliaperez@gmail.com;recepcionista
+Juan;Diego;abcd;12321423;0;example@gmail.com;cliente

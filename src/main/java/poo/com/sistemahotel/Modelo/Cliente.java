@@ -12,6 +12,12 @@ public class Cliente {
     private String telefono;
     private String correo;
     private String direccion;
+    
+    //Constructor vacio
+    public Cliente(){
+            
+    }
+    
     //  Metodo de Constructor
     public Cliente(String cedula, String nombre,String apellido, String telefono, String correo, String direccion) {
         this.cedula = cedula;

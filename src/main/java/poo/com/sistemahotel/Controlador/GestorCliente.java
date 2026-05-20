@@ -4,87 +4,108 @@
  */
 package poo.com.sistemahotel.Controlador;
 
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import poo.com.sistemahotel.Modelo.Cliente;
+import poo.com.sistemahotel.Modelo.PersistenciaCliente;
+import poo.com.sistemahotel.Modelo.ValidadorCliente;
 
 /**
  *
  * @author manue
  */
 public class GestorCliente {
-        
-        private ArrayList<Cliente> clientes;
-        
+
+        private ValidadorCliente validadorCliente;
+        private PersistenciaCliente persistenciaCliente;
+
         /**
          * Constructor
          */
-        public GestorCliente(){
-                clientes = new ArrayList<>();
+        public GestorCliente() {
+                this.validadorCliente = new ValidadorCliente();
+                this.persistenciaCliente = new PersistenciaCliente();
         }
-        
+
         /**
-         * Registrar un nuevo cliente en el arreglo
-         * @param nuevoCliente 
+         * Registrar un nuevo cliente en el archivo
+         *
+         * @param nuevoCliente
          */
-        public void registrarCliente(Cliente nuevoCliente){
-                if(verificarClienteExistente(nuevoCliente.getCedula())){
+        public void registrarCliente(Cliente nuevoCliente) {
+                if (verificarClienteExistente(nuevoCliente.getCedula())) {
                         JOptionPane.showMessageDialog(null, "El cliente ya existe", "Error Cliente", 0);
-                }else{
-                        clientes.add(nuevoCliente);
-                        JOptionPane.showMessageDialog(null, "Cliente ingresado", "Confirmacion Cliente", 1);
-                }
-        }
-        
-        /**
-         * Buscar y retornar un cliente en base a la cedula
-         * @param cedula
-         * @return 
-         */
-        public Cliente buscarCliente(String cedula){
-                Cliente clienteBuscado = new Cliente();
-                for(Cliente cliente : clientes){
-                        if(cliente.getCedula().equalsIgnoreCase(cedula)){
-                                clienteBuscado = cliente;
+                } else {
+                        //Verificar que los formatos sean correctos
+                        if (validadorCliente.validarCliente(nuevoCliente)) {
+
+                                persistenciaCliente.guardarCliente(nuevoCliente);
                         }
                 }
-                
-                return clienteBuscado;
         }
-        
+
         /**
-         * Actualiza la información de un cliente existente
-         * @param nuevoCliente 
+         * Buscar y retornar un cliente en base a la cedula
+         *
+         * @param cedula
+         * @return
          */
-        public void procesarActualizacion(Cliente nuevoCliente){
-                Cliente clienteBuscado = buscarCliente(nuevoCliente.getCedula());
-                
-                //Si el cliente existe
-                if(clienteBuscado != null){
-                        clienteBuscado.setNombre(nuevoCliente.getNombre());
-                        clienteBuscado.setApellido(nuevoCliente.getApellido());
-                        clienteBuscado.setCorreo(nuevoCliente.getCorreo());
-                        clienteBuscado.setDireccion(nuevoCliente.getDireccion());
-                        clienteBuscado.setTelefono(nuevoCliente.getTelefono());
-                        JOptionPane.showMessageDialog(null, "Información de cliente actualizada", "Confirmación Cliente", 1);
-                }else{
-                        JOptionPane.showMessageDialog(null, "Cliente no existe", "Error Cliente", 0);
+        public Cliente buscarCliente(String cedula) {
+                //Validar la cédula
+                if (validadorCliente.validarCedula(cedula)) {
+                        return persistenciaCliente.buscarCliente(cedula);
+                } else {
+                        return null;
                 }
         }
-        
+
+        /**
+         * Actualiza la información de un cliente existente
+         *
+         * @param nuevoCliente
+         */
+        public void procesarActualizacion(Cliente nuevoCliente) {
+                if (validadorCliente.validarCliente(nuevoCliente)) {
+                        Cliente clienteBuscado = buscarCliente(nuevoCliente.getCedula());
+
+                        //Si el cliente existe
+                        if (clienteBuscado != null) {
+                                persistenciaCliente.actualizarCliente(nuevoCliente);
+                                JOptionPane.showMessageDialog(null, "Información de cliente actualizada", "Confirmación Cliente", 1);
+                        } else {
+                                JOptionPane.showMessageDialog(null, "Cliente no existe", "Error Cliente", 0);
+                        }
+                }
+        }
+
         /**
          * Verifica si un cliente existe en el arreglo
+         *
          * @param cedula
-         * @return 
+         * @return
          */
-        public Boolean verificarClienteExistente(String cedula){
+        public Boolean verificarClienteExistente(String cedula) {
                 Boolean clienteExiste = false;
-                for(Cliente cliente : clientes){
-                        if(cliente.getCedula().equalsIgnoreCase(cedula)){
+                for (Cliente cliente : persistenciaCliente.listarClientes()) {
+                        if (cliente.getCedula().equalsIgnoreCase(cedula)) {
                                 clienteExiste = true;
                                 break;
                         }
                 }
                 return clienteExiste;
         }
+
+        public void eliminarCliente(String cedula) {
+                if (validadorCliente.validarCedula(cedula)) {
+                        Cliente clienteBuscado = buscarCliente(cedula);
+
+                        //Si el cliente existe
+                        if (clienteBuscado != null) {
+                                persistenciaCliente.eliminarCliente(cedula);
+                                JOptionPane.showMessageDialog(null, "Clienete eliminado", "Confirmación Cliente", 1);
+                        } else {
+                                JOptionPane.showMessageDialog(null, "Cliente no existe", "Error Cliente", 0);
+                        }
+                }
+        }
+
 }

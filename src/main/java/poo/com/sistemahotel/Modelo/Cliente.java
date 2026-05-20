@@ -12,6 +12,7 @@ public class Cliente {
     private String telefono;
     private String correo;
     private String direccion;
+    private String password;
     
     //Constructor vacio
     public Cliente(){
@@ -19,13 +20,14 @@ public class Cliente {
     }
     
     //  Metodo de Constructor
-    public Cliente(String cedula, String nombre,String apellido, String telefono, String correo, String direccion) {
+    public Cliente(String cedula, String nombre,String apellido, String telefono, String correo, String direccion, String password) {
         this.cedula = cedula;
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.correo = correo;
         this.direccion = direccion;
+        this.password = password;
     }
     // Metodo de Getters y Setters
     public String getCedula() {
@@ -64,5 +66,14 @@ public class Cliente {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+        public String getPassword() {
+                return password;
+        }
+
+        public void setPassword(String password) {
+                this.password = password;
+        }
+
 
 }

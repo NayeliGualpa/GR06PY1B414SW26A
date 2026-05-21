@@ -9,31 +9,34 @@ import java.time.LocalDate;
 public class Reserva {
         // Atributos
 
-        private int idReserva;
+        private int idReserva = 0;
         private LocalDate fechaReserva;
         private LocalDate fechaEntradaPrevista;
         private LocalDate fechaSalidaPrevista;
         private String estado;
         private Pago pagoAsociado;
+        private Habitacion habitacion;
 
         // Método de Constructor
-        public Reserva(int idReserva, LocalDate fechaReserva, LocalDate fechaEntradaPrevista,
-                LocalDate fechaSalidaPrevista, String estado) {
-                this.idReserva = idReserva;
+        public Reserva(LocalDate fechaReserva, LocalDate fechaEntradaPrevista,
+                LocalDate fechaSalidaPrevista, String estado, Habitacion habitacion) {
+                this.idReserva++;
                 this.fechaReserva = fechaReserva;
                 this.fechaEntradaPrevista = fechaEntradaPrevista;
                 this.fechaSalidaPrevista = fechaSalidaPrevista;
                 this.estado = estado;
+                this.habitacion = habitacion;
         }
 
-        public Reserva(int idReserva, LocalDate fechaReserva, LocalDate fechaEntradaPrevista,
-                LocalDate fechaSalidaPrevista, String estado, Pago pago) {
-                this.idReserva = idReserva;
+        public Reserva(LocalDate fechaReserva, LocalDate fechaEntradaPrevista,
+                LocalDate fechaSalidaPrevista, String estado, Pago pago, Habitacion habitacion) {
+                this.idReserva++;
                 this.fechaReserva = fechaReserva;
                 this.fechaEntradaPrevista = fechaEntradaPrevista;
                 this.fechaSalidaPrevista = fechaSalidaPrevista;
                 this.estado = estado;
                 this.pagoAsociado = pago;
+                this.habitacion = habitacion;
         }
 
         // Método de Getters y Setters
@@ -85,4 +88,11 @@ public class Reserva {
                 this.pagoAsociado = pagoAsociado;
         }
 
+        public Habitacion getHabitacion() {
+                return habitacion;
+        }
+
+        public void setHabitacion(Habitacion habitacion) {
+                this.habitacion = habitacion;
+        }
 }

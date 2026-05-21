@@ -71,7 +71,7 @@ public class PersistenciaEstancia {
         return estancias;
     }
     
-    public void guardarEstancias(){
+    public void cargarEstancias(){
             try{
                         BufferedReader br = new BufferedReader(new FileReader(estanciasArchivo));
                         String linea;
@@ -89,7 +89,7 @@ public class PersistenciaEstancia {
                                         }
                                 }
                                 //Orden id;fechaIngreso;fechaSalida;estado;reservaId;multasId
-                                estancias.add(new Estancia(Integer.parseInt(informacion[0]), fechaIngreso, fechaSalida, informacion[3], reserva));
+                                estancias.add(new Estancia(fechaIngreso, fechaSalida, informacion[3], reserva));
                                 int i = 5; //Indice ID multas
                                 while(informacion[i] != null){
                                         

@@ -6,6 +6,10 @@ package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorHabitacion;
+import poo.com.sistemahotel.Controlador.GestorReserva;
+import poo.com.sistemahotel.Modelo.Habitacion;
+import poo.com.sistemahotel.Modelo.Reserva;
 
 /**
  *
@@ -13,6 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class CancelarReserva extends javax.swing.JFrame {
 
+        private GestorReserva gestorReserva;
+        private GestorHabitacion gestorHabitacion;
         /**
          * Creates new form CancelarReserva
          */
@@ -20,6 +26,9 @@ public class CancelarReserva extends javax.swing.JFrame {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
+                
+                this.gestorReserva = new GestorReserva();
+                this.gestorHabitacion = new GestorHabitacion();
                 
                 jCBReserva.setModel(Login.modeloReservas);
         }
@@ -120,20 +129,21 @@ public class CancelarReserva extends javax.swing.JFrame {
                 if(jCBReserva.getSelectedIndex() == 0){
                         JOptionPane.showMessageDialog(null, "Seleccione una reserva", "Error Reserva", 0);
                 }else{
-                        String[] reserva = jCBReserva.getSelectedItem().toString().split(";");
-                        String id = reserva[0];
+                        String[] reservaCB = jCBReserva.getSelectedItem().toString().split(";");
+                        String id = reservaCB[0];
                         int idSeleccionado = jCBReserva.getSelectedIndex();
-                        String idHabitacion = reserva[1];
-
-                        Login.eliminarReserva(id);
+                        String idHabitacion = reservaCB[1];
+                        
+                        Reserva reserva = gestorReserva.buscarReserva(Integer.parseInt(id));
+                        Habitacion habitacion = gestorHabitacion.buscarHabitacion(Integer.parseInt(idHabitacion));
+                        
+                        gestorReserva.cancelarReserva(reserva);
                         Login.modeloReservas.removeElementAt(idSeleccionado);
-                        Login.cambiarEstadoHabitacion(idHabitacion, "disponible");
-                        String habitacion = Login.buscarHabitacionPorId(idHabitacion);
-                        String lineaHabitacion[] = habitacion.split(";");
+                        
+                        gestorHabitacion.cambiarEstadoHabitacion(habitacion, "disponible");
 
-                        Login.modeloHabitaciones.addElement(lineaHabitacion[0] + ", " + lineaHabitacion[1] + ", $" + lineaHabitacion[2]); 
-                        Login.escribirArchivoReservas();
-                        Login.escribirArchivoHabitaciones();
+                        Login.modeloHabitaciones.addElement(habitacion.getNumero() + ", " + habitacion.getTipo() + ", $" + habitacion.getPrecioPorNoche()); 
+                        
                         JOptionPane.showMessageDialog(null, "Reserva cancelada", "Confirmación Cancelación", 1);
                 }
         }//GEN-LAST:event_jBConfirmarActionPerformed

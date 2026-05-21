@@ -10,16 +10,20 @@ import java.util.ArrayList;
 public class Estancia {
         // Atributos
 
-        private int idEstancia;
+        private int idEstancia = 0;
         private LocalDate fechaIngresoReal;
         private LocalDate fechaSalidaReal;
         private String estado;
         private Reserva reserva;
         private ArrayList<Multa> multas;
-
+        
+        public Estancia(){
+                this.idEstancia++;
+        }
+        
         // Metodo de Constructor
-        public Estancia(int idEstancia, LocalDate fechaIngresoReal, LocalDate fechaSalidaReal, String estado, Reserva reserva) {
-                this.idEstancia = idEstancia;
+        public Estancia(LocalDate fechaIngresoReal, LocalDate fechaSalidaReal, String estado, Reserva reserva) {
+                this.idEstancia++;
                 this.fechaIngresoReal = fechaIngresoReal;
                 this.fechaSalidaReal = fechaSalidaReal;
                 this.estado = estado;

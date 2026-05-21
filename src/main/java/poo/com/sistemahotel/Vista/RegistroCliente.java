@@ -6,12 +6,16 @@ package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorCliente;
+import poo.com.sistemahotel.Modelo.Cliente;
 
 /**
  *
  * @author manue
  */
 public class RegistroCliente extends javax.swing.JFrame {
+        
+        private GestorCliente gestorCliente;
 
         /**
          * Creates new form RegistroCliente
@@ -20,6 +24,7 @@ public class RegistroCliente extends javax.swing.JFrame {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
+                this.gestorCliente = new GestorCliente();
         }
 
         /**
@@ -46,6 +51,8 @@ public class RegistroCliente extends javax.swing.JFrame {
                 jPasswordVerificar = new javax.swing.JPasswordField();
                 jLContrasenia1 = new javax.swing.JLabel();
                 jPassword = new javax.swing.JPasswordField();
+                jLNombres1 = new javax.swing.JLabel();
+                jTDireccion = new javax.swing.JTextField();
 
                 setTitle("Registro Cliente");
 
@@ -129,6 +136,17 @@ public class RegistroCliente extends javax.swing.JFrame {
                 jLContrasenia1.setForeground(new java.awt.Color(0, 0, 0));
                 jLContrasenia1.setText("Verificar Contraseña");
 
+                jLNombres1.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
+                jLNombres1.setForeground(new java.awt.Color(0, 0, 0));
+                jLNombres1.setText("Dirección");
+
+                jTDireccion.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
+                jTDireccion.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                jTDireccionActionPerformed(evt);
+                        }
+                });
+
                 javax.swing.GroupLayout jPRegistroLayout = new javax.swing.GroupLayout(jPRegistro);
                 jPRegistro.setLayout(jPRegistroLayout);
                 jPRegistroLayout.setHorizontalGroup(
@@ -162,13 +180,18 @@ public class RegistroCliente extends javax.swing.JFrame {
                                                         .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(101, 101, 101))
                                         .addGroup(jPRegistroLayout.createSequentialGroup()
-                                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jLContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(jLContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(jPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                                                                .addComponent(jPasswordVerificar)))
-                                                .addGap(0, 0, Short.MAX_VALUE))))
+                                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(jLContrasenia1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                                        .addComponent(jPasswordVerificar))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jTDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(28, 28, 28))
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addComponent(jLContrasenia, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(jLNombres1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(139, 139, 139))))
                 );
                 jPRegistroLayout.setVerticalGroup(
                         jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,15 +216,23 @@ public class RegistroCliente extends javax.swing.JFrame {
                                 .addComponent(jLApellidos)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                                .addComponent(jLContrasenia)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLContrasenia1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPasswordVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
+                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                                .addComponent(jLContrasenia)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(jLContrasenia1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jPasswordVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(44, 44, 44))
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jLNombres1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(jTDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addComponent(jBCrearCuenta)
                                 .addGap(22, 22, 22))
                 );
@@ -227,26 +258,25 @@ public class RegistroCliente extends javax.swing.JFrame {
                                 .addComponent(jLTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jPRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(46, Short.MAX_VALUE))
+                                .addContainerGap(40, Short.MAX_VALUE))
                 );
 
                 pack();
         }// </editor-fold>//GEN-END:initComponents
 
         private void jBCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCrearCuentaActionPerformed
-                if(jTNombres.getText().isEmpty() || jTApellidos.getText().isEmpty() || new String(jPassword.getPassword()).isEmpty() || jTCedula.getText().isEmpty() || jTTelefono.getText().isEmpty() || jTCorreo.getText().isEmpty()){
+                if(jTNombres.getText().isEmpty() || jTApellidos.getText().isEmpty() || new String(jPassword.getPassword()).isEmpty() || jTCedula.getText().isEmpty() || jTTelefono.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTDireccion.getText().isEmpty()){
                         JOptionPane.showMessageDialog(null, "¡Ingrese los datos!", "Error Espacios en Blanco", 0);
                 }else{         
-                        //Verificar que el correo no exista en el registro
-                        if(Login.verificarCorreoExiste(jTCorreo.getText().trim())){
-                                JOptionPane.showMessageDialog(null, "¡El correo ya existe!", "Error Correo", 0);
+                        //Verificar que la cédula no exista en el registro
+                        if(gestorCliente.verificarClienteExistente(jTCedula.getText())){
+                                JOptionPane.showMessageDialog(null, "¡La cédula ya existe!", "Error Correo", 0);
                         }else{
                                 //Si las contraseñas coinciden
                                 if(new String(jPasswordVerificar.getPassword()).trim().equals(new String(jPassword.getPassword()).trim())){
-                                        String usuarioNuevo = jTNombres.getText().trim() + ";" + jTApellidos.getText().trim() + ";" + new String(jPassword.getPassword()).trim() + ";" + jTCedula.getText().trim() + ";" + jTTelefono.getText().trim() + ";" + jTCorreo.getText().trim() + ";" + "cliente";
-                                        Login.usuariosLista.add(usuarioNuevo);
-                                        Login.modeloClientes.addElement(usuarioNuevo);
-                                        Login.escribirArchivoUsuarios();
+                                        Cliente clienteNuevo = new Cliente(jTCedula.getText().trim(), jTNombres.getText().trim(), jTApellidos.getText().trim(), jTTelefono.getText().trim(), jTCorreo.getText().trim(), jTDireccion.getText().trim(), new String(jPassword.getPassword()).trim());
+                                        gestorCliente.registrarCliente(clienteNuevo);
+                                        Login.modeloClientes.addElement(clienteNuevo.getNombre() + " " + clienteNuevo.getApellido() + ", " + clienteNuevo.getCedula());
                                         limpiarInterfaz();
                                         JOptionPane.showMessageDialog(null, "Se registró el cliente", "Confirmación Registro", 1);
 
@@ -278,6 +308,10 @@ public class RegistroCliente extends javax.swing.JFrame {
         private void jTTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTelefonoActionPerformed
                 // TODO add your handling code here:
         }//GEN-LAST:event_jTTelefonoActionPerformed
+
+        private void jTDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDireccionActionPerformed
+                // TODO add your handling code here:
+        }//GEN-LAST:event_jTDireccionActionPerformed
 
         /**
          * @param args the command line arguments
@@ -322,6 +356,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         private javax.swing.JLabel jLContrasenia1;
         private javax.swing.JLabel jLCorreo;
         private javax.swing.JLabel jLNombres;
+        private javax.swing.JLabel jLNombres1;
         private javax.swing.JLabel jLTelefono;
         private javax.swing.JLabel jLTitulo1;
         private javax.swing.JPanel jPRegistro;
@@ -330,6 +365,7 @@ public class RegistroCliente extends javax.swing.JFrame {
         private javax.swing.JTextField jTApellidos;
         private javax.swing.JTextField jTCedula;
         private javax.swing.JTextField jTCorreo;
+        private javax.swing.JTextField jTDireccion;
         private javax.swing.JTextField jTNombres;
         private javax.swing.JTextField jTTelefono;
         // End of variables declaration//GEN-END:variables

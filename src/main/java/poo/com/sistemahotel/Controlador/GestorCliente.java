@@ -108,4 +108,9 @@ public class GestorCliente {
                 }
         }
 
+        public PersistenciaCliente getPersistenciaCliente() {
+                return persistenciaCliente;
+        }
+
+        
 }

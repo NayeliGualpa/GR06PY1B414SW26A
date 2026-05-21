@@ -8,6 +8,6 @@ package poo.com.sistemahotel.Controlador;
  *
  * @author manue
  */
-class GestorMulta {
+public class GestorMulta {
         
 }

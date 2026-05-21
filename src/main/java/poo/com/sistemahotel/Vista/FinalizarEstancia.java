@@ -6,12 +6,22 @@ package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorEstancia;
+import poo.com.sistemahotel.Controlador.GestorHabitacion;
+import poo.com.sistemahotel.Controlador.GestorReserva;
+import poo.com.sistemahotel.Modelo.Estancia;
+import poo.com.sistemahotel.Modelo.Habitacion;
+import poo.com.sistemahotel.Modelo.Reserva;
 
 /**
  *
  * @author manue
  */
 public class FinalizarEstancia extends javax.swing.JFrame {
+        
+        private GestorReserva gestorReserva;
+        private GestorEstancia gestorEstancia;
+        private GestorHabitacion gestorHabitacion;
 
         /**
          * Creates new form FinalizarEstancia
@@ -21,7 +31,10 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                jCBCliente.setModel(Login.modeloClientes);
+                this.gestorReserva = new GestorReserva();
+                this.gestorEstancia = new GestorEstancia();
+                this.gestorHabitacion = new GestorHabitacion();
+                
                 jCBEstancia.setModel(Login.modeloEstancias);
         }
 
@@ -34,11 +47,9 @@ public class FinalizarEstancia extends javax.swing.JFrame {
 
                 jLTitulo = new javax.swing.JLabel();
                 jPRegistro = new javax.swing.JPanel();
-                jLCliente = new javax.swing.JLabel();
                 jCBEstancia = new javax.swing.JComboBox<>();
                 jBConfirmar = new javax.swing.JButton();
                 jLEstancia = new javax.swing.JLabel();
-                jCBCliente = new javax.swing.JComboBox<>();
                 jLEstadoHabitacion = new javax.swing.JLabel();
                 jCBEstadoHabitacion = new javax.swing.JComboBox<>();
 
@@ -50,10 +61,6 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 jLTitulo.setText("Finalizar estancia del cliente");
 
                 jPRegistro.setOpaque(false);
-
-                jLCliente.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
-                jLCliente.setForeground(new java.awt.Color(0, 0, 0));
-                jLCliente.setText("Cliente");
 
                 jCBEstancia.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
                 jCBEstancia.setForeground(new java.awt.Color(255, 255, 255));
@@ -72,9 +79,6 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 jLEstancia.setForeground(new java.awt.Color(0, 0, 0));
                 jLEstancia.setText("Estancia");
 
-                jCBCliente.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBCliente.setForeground(new java.awt.Color(255, 255, 255));
-
                 jLEstadoHabitacion.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLEstadoHabitacion.setForeground(new java.awt.Color(0, 0, 0));
                 jLEstadoHabitacion.setText("Estado de la habitación");
@@ -87,40 +91,34 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 jPRegistro.setLayout(jPRegistroLayout);
                 jPRegistroLayout.setHorizontalGroup(
                         jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPRegistroLayout.createSequentialGroup()
-                                .addContainerGap(247, Short.MAX_VALUE)
-                                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(217, 217, 217))
                         .addGroup(jPRegistroLayout.createSequentialGroup()
-                                .addGap(56, 56, 56)
                                 .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jCBEstadoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(jLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jLEstancia, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jCBCliente, 0, 377, Short.MAX_VALUE)
-                                                .addComponent(jCBEstancia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(jLEstadoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addGap(47, 47, 47)
+                                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jCBEstadoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jCBEstancia, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLEstancia, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLEstadoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addGap(226, 226, 226)
+                                                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(155, Short.MAX_VALUE))
                 );
                 jPRegistroLayout.setVerticalGroup(
                         jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPRegistroLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
+                                .addGap(40, 40, 40)
                                 .addComponent(jLEstancia)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCBEstancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(26, 26, 26)
+                                .addGap(18, 18, 18)
                                 .addComponent(jLEstadoHabitacion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCBEstadoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                                 .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(28, 28, 28))
+                                .addGap(112, 112, 112))
                 );
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -151,18 +149,18 @@ public class FinalizarEstancia extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
-                if(jCBCliente.getSelectedIndex() == 0 || jCBEstancia.getSelectedIndex() == 0 || jCBEstadoHabitacion.getSelectedIndex() == 0){
+                if(jCBEstancia.getSelectedIndex() == 0 || jCBEstadoHabitacion.getSelectedIndex() == 0){
                         JOptionPane.showMessageDialog(null, "Seleccione la información", "Error Selección", 0);
                 }else{
-                        String clienteId = Integer.toString(Login.buscarClientePorCorreo(jCBCliente.getSelectedItem().toString().split(";")[5]));
-                        String estanciaId = jCBEstancia.getSelectedItem().toString().split(";")[0];
+
+                        Estancia estancia = gestorEstancia.getPersistenciaEstancia().buscarEstancia(Integer.parseInt(jCBEstancia.getSelectedItem().toString().split((","))[0]));
+                        Reserva reserva = gestorReserva.buscarReserva(Integer.parseInt(jCBEstancia.getSelectedItem().toString().split(",")[1]));
+                        
                         int monto = 0;
+
+                        Habitacion habitacion = reserva.getHabitacion();
+                        
                         String estado = jCBEstadoHabitacion.getSelectedItem().toString();
-                        int idSeleccionado = jCBEstancia.getSelectedIndex();
-                        String estanciaSeleccionada = Login.buscarEstanciaPorId(estanciaId);
-                        String reserva = Login.buscarReservaPorId(estanciaSeleccionada.split(";")[2]);
-                        System.out.println(reserva);
-                        String habitacionId = reserva.split(";")[1];
 
                         switch(estado){
                                 case "Buen estado":
@@ -175,15 +173,13 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                                         monto = 50;
                                         break;
                         }
-                        Login.cambiarEstadoEstancia(estanciaId, estado);
-                        Login.modeloEstancias.removeElementAt(idSeleccionado);
-                        Login.cambiarEstadoHabitacion(habitacionId, "disponible");
+                        
+                        Login.modeloEstancias.removeElementAt(jCBEstancia.getSelectedIndex());
+                        gestorHabitacion.cambiarEstadoHabitacion(habitacion, estado);
 
-                        String habitacion = Login.buscarHabitacionPorId(habitacionId);
-                        String lineaHabitacion[] = habitacion.split(";");
-                        Login.modeloHabitaciones.addElement(lineaHabitacion[0] + ", " + lineaHabitacion[1] + ", $" + lineaHabitacion[2]);
-                        Login.escribirArchivoEstancias();
-                        Login.escribirArchivoHabitaciones();
+                        
+                        Login.modeloHabitaciones.addElement(habitacion.getNumero() + ", " + habitacion.getTipo() + ", $" + habitacion.getPrecioPorNoche());
+                        gestorEstancia.getPersistenciaEstancia().actualizarEstancia(estancia);
                         JOptionPane.showMessageDialog(null, "Estancia Finalizada", "Confirmación Estancia", 1);
                         JOptionPane.showMessageDialog(null, "Monto a devolver: " + monto, "Confirmación", 1);
                         
@@ -227,10 +223,8 @@ public class FinalizarEstancia extends javax.swing.JFrame {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton jBConfirmar;
-        private javax.swing.JComboBox<String> jCBCliente;
         private javax.swing.JComboBox<String> jCBEstadoHabitacion;
         private javax.swing.JComboBox<String> jCBEstancia;
-        private javax.swing.JLabel jLCliente;
         private javax.swing.JLabel jLEstadoHabitacion;
         private javax.swing.JLabel jLEstancia;
         private javax.swing.JLabel jLTitulo;

@@ -12,7 +12,7 @@ import poo.com.sistemahotel.Modelo.ValidadorHabitacion;
  *
  * @author manue
  */
-class GestorHabitacion {
+public class GestorHabitacion {
 
         private ValidadorHabitacion validadorHabitacion;
         private PersistenciaHabitacion persistenciaHabitacion;
@@ -46,4 +46,10 @@ class GestorHabitacion {
                 }
                 return null;
         }
+
+        public PersistenciaHabitacion getPersistenciaHabitacion() {
+                return persistenciaHabitacion;
+        }
+        
+        
 }

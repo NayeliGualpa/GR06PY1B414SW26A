@@ -5,49 +5,27 @@
 package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.*;
+import poo.com.sistemahotel.Modelo.*;
 
 /**
  *
  * @author manue
  */
 public class Login extends javax.swing.JFrame {
-        
-        //Archivos
-        private static File reservas;
-        private static File habitaciones;
-        private static File usuarios;
-        private static File reservasArchivo;
-        private static File habitacionesArchivo;
-        private static File estanciasArchivo;
-        
-        //Arreglos
-        public static ArrayList<String> usuariosLista;
-        public static ArrayList<String> habitacionesLista;
-        public static ArrayList<String> reservasLista;
-        public static ArrayList<String> estanciasLista;
-        
+
         //Combo Box
         public static DefaultComboBoxModel<String> modeloHabitaciones;
         public static DefaultComboBoxModel<String> modeloClientes;
         public static DefaultComboBoxModel<String> modeloReservas;
         public static DefaultComboBoxModel<String> modeloEstancias;
-
-        
+        private GestorCliente gestorCliente;
+        private GestorHabitacion gestorHabitacion;
+        private GestorEstancia gestorEstancia;
+        private GestorReserva gestorReserva;
 
         /**
          * Creates new form Login
@@ -56,58 +34,40 @@ public class Login extends javax.swing.JFrame {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
-                System.out.println(LocalDate.now());
-                
-                reservas = new File("src/main/resources/archivos/reservas.txt");
-                habitaciones = new File("src/main/resources/archivos/habitaciones.txt");
-                usuarios = new File("src/main/resources/archivos/usuarios.txt");
-                reservasArchivo = new File("src/main/resources/archivos/reservas.txt");
-                habitacionesArchivo = new File("src/main/resources/archivos/habitaciones.txt");
-                estanciasArchivo = new File("src/main/resources/archivos/estancias.txt");
-                
-                usuariosLista = new ArrayList<>();
-                habitacionesLista = new ArrayList<>();
-                reservasLista = new ArrayList<>();
-                estanciasLista = new ArrayList<>();
+
                 modeloClientes = new DefaultComboBoxModel<>();
-                modeloHabitaciones = new  DefaultComboBoxModel<>();
+                modeloHabitaciones = new DefaultComboBoxModel<>();
                 modeloReservas = new DefaultComboBoxModel<>();
                 modeloEstancias = new DefaultComboBoxModel<>();
-                
-                //Cargar informacion de los archivos
-                leerArchivoUsuarios();
-                leerArchivoHabitaciones();
-                leerArchivoReservas();
-                leerArchivoEstancias();
-                
+
+                this.gestorCliente = new GestorCliente();
+                this.gestorHabitacion = new GestorHabitacion();
+                this.gestorEstancia = new GestorEstancia();
+                this.gestorReserva = new GestorReserva();
+
                 //Cargar informacion de comboBox
                 modeloHabitaciones.addElement("Seleccione...");
-                for(String habitacion : habitacionesLista){
-                        String[] linea = habitacion.split(";");
-                        if(linea[3].equalsIgnoreCase("disponible")){
-                                modeloHabitaciones.addElement(linea[0] + ", " + linea[1] + ", $" + linea[2]);
+                for (Habitacion habitacion : gestorHabitacion.getPersistenciaHabitacion().listarHabitaciones()) {
+                        if (habitacion.getEstado().equalsIgnoreCase("disponible")) {
+                                modeloHabitaciones.addElement(habitacion.getNumero() + ", " + habitacion.getTipo() + ", $" + habitacion.getPrecioPorNoche());
                         }
                 }
-                
+
                 modeloReservas.addElement("Seleccione...");
-                for(String reserva : reservasLista){
-                        String[] linea = reserva.split(";");
-                        modeloReservas.addElement(reserva);
+                for (Reserva reserva : gestorReserva.getPersistenciaReserva().listarReservas()) {
+                        modeloReservas.addElement(reserva.getIdReserva() + ", " + reserva.getEstado());
                 }
-                
+
                 modeloClientes.addElement("Seleccione...");
-                for(String usuario : usuariosLista){
-                        String[] linea = usuario.split(";");
-                        if(linea[6].equals("cliente")){
-                                modeloClientes.addElement(usuario);
-                        }
+                for (Cliente cliente : gestorCliente.getPersistenciaCliente().listarClientes()) {
+
+                        modeloClientes.addElement(cliente.getNombre() + " " + cliente.getApellido() + ", " + cliente.getCedula());
                 }
-                
+
                 modeloEstancias.addElement("Seleccione...");
-                for(String estancia : estanciasLista){
-                        String[] linea = estancia.split(";");
-                        if(linea[3].equals("ingresado")){
-                                modeloEstancias.addElement(estancia);
+                for (Estancia estancia : gestorEstancia.getPersistenciaEstancia().listarEstancias()) {
+                        if (estancia.getEstado().equals("ingresado")) {
+                                modeloEstancias.addElement(estancia.getIdEstancia() + ", " + estancia.getReserva().getIdReserva());
                         }
                 }
         }
@@ -268,30 +228,36 @@ public class Login extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jBInicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBInicioSesionActionPerformed
-                if(jTCorreo.getText().isEmpty() ||new String(jPassword.getPassword()).isEmpty()){
+                if (jTCorreo.getText().isEmpty() || new String(jPassword.getPassword()).isEmpty()) {
                         JOptionPane.showMessageDialog(null, "¡Ingrese los datos!", "Error Espacios en Blanco", 0);
-                }else{
+                } else {
                         boolean usuarioExiste = false;
-                        for(int i = 0; i < usuariosLista.size(); i++){
-                                String[] usuario = usuariosLista.get(i).split(";"); //Separar por ;
-                                if( usuario[5].equals(jTCorreo.getText().trim()) && usuario[2].equals(new String(jPassword.getPassword()).trim()) && usuario[6].equalsIgnoreCase("recepcionista")){
-                                        usuarioExiste = true;
-                                        MenuPrincipalRecepcionista rep = new MenuPrincipalRecepcionista();
-                                        this.dispose(); //Cerrar login
-                                        rep.setVisible(true); //Abrir menu recepcionista
-                                }else if(usuario[5].equals(jTCorreo.getText().trim()) && usuario[2].equals(new String(jPassword.getPassword()).trim()) && usuario[6].equalsIgnoreCase("cliente")){
-                                        usuarioExiste = true;
-                                        MenuPrincipalCliente cliente = new MenuPrincipalCliente();
-                                        this.dispose();
-                                        cliente.setVisible(true);
+                        String password = new String(jPassword.getPassword()).trim();
+                        //Si el usuario que se ingresa es el recepcionista
+                        if (jTCorreo.getText().equals("admin1") && password.equals("hol@mundo")) {
+                                usuarioExiste = true;
+                                MenuPrincipalRecepcionista rep = new MenuPrincipalRecepcionista();
+                                this.dispose(); //Cerrar login
+                                rep.setVisible(true); //Abrir menu recepcionista
+                        }else{
+                                //Verificar que el cliente existe y que ingresa con su correo y contraseña
+                                for (Cliente cliente : gestorCliente.getPersistenciaCliente().listarClientes()) {
+                                        System.out.println(cliente);
+                                        if (cliente.getCorreo().equals(jTCorreo.getText().trim()) && cliente.getPassword().equals(password)) {
+                                                usuarioExiste = true;
+                                                MenuPrincipalCliente cl = new MenuPrincipalCliente();
+                                                this.dispose();
+                                                cl.setVisible(true);
+                                                break;
+                                        }
                                 }
                         }
-                        
-                        if(!usuarioExiste){
+
+                        if (!usuarioExiste) {
                                 JOptionPane.showMessageDialog(null, "¡Usuario incorrecto!", "Error Usuario", 0);
                         }
                 }
-                
+
         }//GEN-LAST:event_jBInicioSesionActionPerformed
 
         private void jBRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBRegistroActionPerformed
@@ -300,7 +266,7 @@ public class Login extends javax.swing.JFrame {
         }//GEN-LAST:event_jBRegistroActionPerformed
 
         private void jTCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCorreoActionPerformed
-                
+
         }//GEN-LAST:event_jTCorreoActionPerformed
 
         /**
@@ -351,278 +317,4 @@ public class Login extends javax.swing.JFrame {
         private javax.swing.JTextField jTCorreo;
         // End of variables declaration//GEN-END:variables
 
-        /**
-         * Método para leer el archivo de usuarios
-         */
-        private void leerArchivoUsuarios() {
-                try{
-                        
-                        if (usuarios == null) {
-                                System.out.println("Error: El archivo usuarios.txt no existe dentro del JAR.");
-                                return;
-                            }
-                        BufferedReader br = new BufferedReader(new FileReader(usuarios));
-                        String linea;
-                        while((linea = br.readLine()) != null ){
-                                //String[] informacion = linea.split(";");
-                                //Orden Nombre; Apellidos; Contraseña; Cedula; Telefono; Correo, Estado
-                                usuariosLista.add(linea);
-                        }
-                        br.close();
-                }catch(IOException ex){
-                        System.out.println("Error al leer el archivo de usuarios: " + ex.getMessage());
-                }
-        }
-
-        private void leerArchivoHabitaciones() {
-                try{
-                        
-                        if(habitaciones == null){
-                                System.out.println("Error: El archivo habitaciones.txt no existe dentro del JAR.");
-                                return;
-                        }
-                        BufferedReader br = new BufferedReader(new FileReader(habitaciones));
-                        String linea;
-                        while((linea = br.readLine()) != null){
-                                //String[] informacion = linea.split(";");
-                                //Orden numero;tipo;precio;estado
-                                habitacionesLista.add(linea);
-                        }
-                }catch(IOException ex){
-                        System.out.println("Error al leer el archivo de habitaciones: " + ex.getMessage());
-                }
-        }
-
-        private void leerArchivoReservas() {
-                try{
-                        if(reservas == null){
-                                System.out.println("Error: El archivo reservas.txt no existe dentro del JAR.");
-                                return;
-                        }
-                        BufferedReader br = new BufferedReader(new FileReader(reservas));
-                        String linea;
-                        while((linea = br.readLine()) != null){
-                                //String[] informacion = linea.split(";");
-                                //Orden numero;diaInicio;mesInicio;anioInicio;diaFin;mesFin;anioFin;estado
-                                reservasLista.add(linea);
-                        }
-                }catch(IOException ex){
-                        System.out.println("Error al leer el archivo de reservas: " + ex.getMessage());
-                }
-        }
-        
-        private void leerArchivoEstancias(){
-                try{
-                        BufferedReader br = new BufferedReader(new FileReader(estanciasArchivo));
-                        String linea;
-                        while((linea = br.readLine()) != null){
-                                //String[] informacion = linea.split(";");
-                                //Orden numero;idCliente;idReserva;estado
-                                estanciasLista.add(linea);
-                        }
-                }catch(IOException ex){
-                        System.out.println("Error al leer el archivo de estancias: " + ex.getMessage());
-                }
-        }
-        
-        protected static  void escribirArchivoReservas(){
-                try{
-//                        //Si no existe el archivo, se crea una copia
-//                        if(!reservasArchivo.exists()){
-//                                
-//                                if(reservas != null){
-//                                        OutputStream salidaArchivo = new FileOutputStream(reservasArchivo);
-//                                        
-//                                        byte[] buffer = new byte[1024];
-//                                        int longitud;
-//                                        while((longitud = reservas.read(buffer)) > 0){
-//                                                salidaArchivo.write(buffer, 0, longitud);
-//                                        }
-//                                        
-//                                        salidaArchivo.close();
-//                                        reservas.close();
-//                                }
-//                        }else{
-//                                reservasArchivo.createNewFile();
-//                        }
-//                        
-//                        OutputStream os = new FileOutputStream(reservasArchivo, true);
-//                        String nuevaLinea = reserva;
-//                        
-//                        byte[] datosEnBytes = nuevaLinea.getBytes("UTF-8");
-//                        
-//                        os.write(datosEnBytes);
-//                        
-//                        os.flush();
-//                        os.close();
-                        
-                        BufferedWriter bw = new BufferedWriter(new FileWriter(reservasArchivo));
-                        for(String reserva : reservasLista){
-                                bw.append(reserva);
-                                bw.newLine();
-                        }
-                        bw.close();
-                        
-                }catch(IOException ex){
-                        System.out.println("Error al escribir en el archivo de reservas: " + ex.getMessage());
-                }
-        }
-        
-        protected static void escribirArchivoHabitaciones(){
-                try{
-                        BufferedWriter bw = new BufferedWriter(new FileWriter(habitacionesArchivo));
-                        for(String habitacion : habitacionesLista){
-                                bw.append(habitacion);
-                                bw.newLine();
-                        }
-                        bw.close();
-
-                }catch(IOException ex){
-                        System.out.println("Error al escribir en el archivo de habitaciones: " + ex.getMessage());
-                }
-        }
-        
-        protected static void escribirArchivoUsuarios(){
-                try{
-                        BufferedWriter bw = new BufferedWriter(new FileWriter(usuarios));
-                        for(String usuario : usuariosLista){
-                                bw.append(usuario);
-                                bw.newLine();
-                        }
-                        bw.close();
-                        
-                }catch(IOException ex){
-                        System.out.println("Error al escribir en el archivo de clientes: " + ex.getMessage());
-                }
-        }
-        
-        protected static void escribirArchivoEstancias(){
-                try{
-                        BufferedWriter bw = new BufferedWriter(new FileWriter(estanciasArchivo));
-                        for(String estancia : estanciasLista){
-                                bw.append(estancia);
-                                bw.newLine();
-                        }
-                        bw.close();
-                        
-                }catch(IOException ex){
-                        System.out.println("Error al escribir en el archivo de estancias: " + ex.getMessage());
-                }
-        }
-        
-        protected static void cambiarEstadoHabitacion(String id, String nuevoEstado){
-                for (int i = 0; i < habitacionesLista.size(); i++) {
-                        String habitacionActual = habitacionesLista.get(i);
-                        String[] informacion = habitacionActual.split(";");
-
-                        // Si encontramos la habitación por su ID
-                        if (informacion[0].equals(id)) {
-                            informacion[3] = nuevoEstado; // Modificamos el estado en el arreglo
-
-                            // Reconstruimos la cadena de texto de la habitación
-                            String estanciaModificada = informacion[0] + ";" + informacion[1] + ";" + informacion[2] + ";" + informacion[3];
-
-                            // PASO CLAVE: Guardamos los cambios de vuelta en la lista real usando el índice 'i'
-                            habitacionesLista.set(i, estanciaModificada);
-
-                            break; // Rompemos el ciclo porque ya encontramos y modificamos la habitación
-                        }
-                    }
-        }
-        
-        protected static void cambiarEstadoEstancia(String id, String nuevoEstado){
-                for (int i = 0; i < estanciasLista.size(); i++) {
-                        String estanciaActual = estanciasLista.get(i);
-                        String[] informacion = estanciaActual.split(";");
-
-                        // Si encontramos la habitación por su ID
-                        if (informacion[0].equals(id)) {
-                            informacion[3] = nuevoEstado; // Modificamos el estado en el arreglo
-
-                            // Reconstruimos la cadena de texto de la habitación
-                            String habitacionModificada = informacion[0] + ";" + informacion[1] + ";" + informacion[2] + ";" + informacion[3];
-
-                            // PASO CLAVE: Guardamos los cambios de vuelta en la lista real usando el índice 'i'
-                            habitacionesLista.set(i, habitacionModificada);
-
-                            break; // Rompemos el ciclo porque ya encontramos y modificamos la habitación
-                        }
-                    }
-        }
-        
-        protected static void eliminarReserva(String id){
-                Iterator<String> iterador = reservasLista.iterator();
-                
-                while (iterador.hasNext()){
-                        String[] informacion = iterador.next().split(";");
-                        
-                        if(informacion[0].equals(id)){
-                                iterador.remove();
-                                
-                                JOptionPane.showMessageDialog(null, "Reserva eliminada", "Confirmacion reserva eliminada", 1);
-                        }
-                }
-        }
-        
-        protected static int buscarClientePorCorreo(String correo){
-                int id = 0;
-                for(int i = 0; i < usuariosLista.size(); i++){
-                        String[] usuario = usuariosLista.get(i).split(";");
-                        if(usuario[5].equals(correo)){
-                                id = i;
-                        }
-                }
-                return id;
-        }
-        
-        protected static String buscarHabitacionPorId(String id){
-                String habitacionBuscada = "";
-                for(String habitacion : habitacionesLista){
-                        if(habitacion.split(";")[0].equals(id)){
-                                habitacionBuscada = habitacion;
-                        }
-                }
-                
-                return habitacionBuscada;
-        }
-        
-        protected static String buscarEstanciaPorId(String id){
-                String estanciaBuscada = "";
-                for(String estancia : estanciasLista){
-                        if(estancia.split(";")[0].equals(id)){
-                                estanciaBuscada = estancia;
-                        }
-                }
-                
-                return estanciaBuscada;
-        }
-        
-        protected static String buscarReservaPorId(String id) {
-                String reservaBuscada = "";
-                for(String reserva : reservasLista){
-                        if(reserva.split(";")[1].equals(id)){
-                                reservaBuscada = reserva;
-                        }
-                }
-                
-                return reservaBuscada;
-        }
-        
-        /**
-         * Metodo para verificar si un correo electronico existe en el registro
-         * @param correo
-         * @return 
-         */
-        protected static Boolean verificarCorreoExiste(String correo){
-                Boolean correoExiste = false;
-                
-                for(String usuario : usuariosLista){
-                        String[] linea = usuario.split(";");
-                        if(linea[5].equalsIgnoreCase(correo)){
-                                correoExiste = true;
-                                break;
-                        }
-                }
-                return correoExiste;
-        }
 }

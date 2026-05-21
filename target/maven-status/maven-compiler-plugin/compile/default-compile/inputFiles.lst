@@ -1,10 +1,12 @@
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorCliente.java
+C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorEstancia.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorHabitacion.java
+C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorMulta.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorPago.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Controlador\GestorReserva.java
+C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\App.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\Cliente.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\Estancia.java
-C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\GR06PY1B414SW26A.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\Habitacion.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\Multa.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Modelo\Pago.java
@@ -27,5 +29,5 @@ C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\p
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\MenuPrincipalCliente.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\MenuPrincipalRecepcionista.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\RegistrarIngreso.java
+C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\RegistrarReserva.java
 C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\RegistroCliente.java
-C:\Users\manue\OneDrive\Documentos\NetBeansProjects\SistemaHotel\src\main\java\poo\com\sistemahotel\Vista\Reserva.java

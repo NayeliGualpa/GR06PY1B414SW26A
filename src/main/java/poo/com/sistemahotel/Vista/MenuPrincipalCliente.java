@@ -91,7 +91,7 @@ public class MenuPrincipalCliente extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jBReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBReservaActionPerformed
-                Reserva reserva = new Reserva();
+                RegistrarReserva reserva = new RegistrarReserva();
                 reserva.setVisible(true);
         }//GEN-LAST:event_jBReservaActionPerformed
 

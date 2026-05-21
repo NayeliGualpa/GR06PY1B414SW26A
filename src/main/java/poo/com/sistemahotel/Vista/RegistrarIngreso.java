@@ -5,7 +5,13 @@
 package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
+import java.time.LocalDate;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorCliente;
+import poo.com.sistemahotel.Controlador.GestorEstancia;
+import poo.com.sistemahotel.Controlador.GestorReserva;
+import poo.com.sistemahotel.Modelo.Estancia;
+import poo.com.sistemahotel.Modelo.Reserva;
 
 /**
  *
@@ -13,6 +19,8 @@ import javax.swing.JOptionPane;
  */
 public class RegistrarIngreso extends javax.swing.JFrame {
 
+        private GestorReserva gestorReserva;
+        private GestorEstancia gestorEstancia;
         /**
          * Creates new form RegistrarIngreso
          */
@@ -21,7 +29,9 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                jCBCliente.setModel(Login.modeloClientes);
+                this.gestorReserva = new GestorReserva();
+                this.gestorEstancia = new GestorEstancia();
+                
                 jCBReserva.setModel(Login.modeloReservas);
         }
 
@@ -34,11 +44,9 @@ public class RegistrarIngreso extends javax.swing.JFrame {
 
                 jLTitulo = new javax.swing.JLabel();
                 jPRegistro = new javax.swing.JPanel();
-                jLCliente = new javax.swing.JLabel();
                 jCBReserva = new javax.swing.JComboBox<>();
                 jBConfirmar = new javax.swing.JButton();
                 jLReserva1 = new javax.swing.JLabel();
-                jCBCliente = new javax.swing.JComboBox<>();
 
                 setTitle("Registrar Ingreso Cliente");
 
@@ -48,10 +56,6 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                 jLTitulo.setText("Registrar ingreso del cliente");
 
                 jPRegistro.setOpaque(false);
-
-                jLCliente.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
-                jLCliente.setForeground(new java.awt.Color(0, 0, 0));
-                jLCliente.setText("Cliente");
 
                 jCBReserva.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
                 jCBReserva.setForeground(new java.awt.Color(255, 255, 255));
@@ -70,9 +74,6 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                 jLReserva1.setForeground(new java.awt.Color(0, 0, 0));
                 jLReserva1.setText("Reserva");
 
-                jCBCliente.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBCliente.setForeground(new java.awt.Color(255, 255, 255));
-
                 javax.swing.GroupLayout jPRegistroLayout = new javax.swing.GroupLayout(jPRegistro);
                 jPRegistro.setLayout(jPRegistroLayout);
                 jPRegistroLayout.setHorizontalGroup(
@@ -80,29 +81,23 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                         .addGroup(jPRegistroLayout.createSequentialGroup()
                                 .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPRegistroLayout.createSequentialGroup()
-                                                .addGap(56, 56, 56)
-                                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                        .addComponent(jLCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jLReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jCBCliente, 0, 334, Short.MAX_VALUE)
-                                                        .addComponent(jCBReserva, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGroup(jPRegistroLayout.createSequentialGroup()
                                                 .addGap(217, 217, 217)
-                                                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(189, Short.MAX_VALUE))
+                                                .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPRegistroLayout.createSequentialGroup()
+                                                .addGap(47, 47, 47)
+                                                .addGroup(jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jCBReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(198, Short.MAX_VALUE))
                 );
                 jPRegistroLayout.setVerticalGroup(
                         jPRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(jPRegistroLayout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(jLCliente)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCBCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
+                                .addGap(38, 38, 38)
                                 .addComponent(jLReserva1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCBReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
+                                .addGap(113, 113, 113)
                                 .addComponent(jBConfirmar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(49, Short.MAX_VALUE))
                 );
@@ -134,14 +129,25 @@ public class RegistrarIngreso extends javax.swing.JFrame {
         }// </editor-fold>//GEN-END:initComponents
 
         private void jBConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBConfirmarActionPerformed
-                if(jCBCliente.getSelectedIndex() == 0 || jCBReserva.getSelectedIndex() == 0){
+                if(jCBReserva.getSelectedIndex() == 0){
                         JOptionPane.showMessageDialog(null, "Seleccione los datos", "Error Seleccion Datos", 0);
                 }else{
-                        String clienteId = Integer.toString(Login.buscarClientePorCorreo(jCBCliente.getSelectedItem().toString().split(";")[5]));
-                        String reservaId = jCBReserva.getSelectedItem().toString().split(";")[0];
-                        Login.estanciasLista.add("001;" + clienteId + ";" + reservaId + ";" + "ingresado");
-                        Login.modeloEstancias.addElement("001;" + clienteId + ";" + reservaId + ";" + "ingresado");
-                        Login.escribirArchivoEstancias();
+                        
+                        LocalDate fechaIngreso = LocalDate.now();
+                        
+                        Reserva reserva = gestorReserva.buscarReserva(Integer.parseInt(jCBReserva.getSelectedItem().toString().split(",")[0]));
+                        
+                        Estancia estancia = new Estancia();
+                        
+                        estancia.setReserva(reserva);
+                        estancia.setFechaIngresoReal(fechaIngreso);
+                        estancia.setEstado("Buen estado");
+                        
+                        
+                        Login.modeloEstancias.addElement(estancia.getIdEstancia() + ", " + estancia.getReserva().getIdReserva());
+                        
+                        gestorEstancia.registrarIngreso(estancia);
+                        
                         JOptionPane.showMessageDialog(null, "Ingreso registrado", "Confirmación Ingreso", 1);
                 }
         }//GEN-LAST:event_jBConfirmarActionPerformed
@@ -183,9 +189,7 @@ public class RegistrarIngreso extends javax.swing.JFrame {
 
         // Variables declaration - do not modify//GEN-BEGIN:variables
         private javax.swing.JButton jBConfirmar;
-        private javax.swing.JComboBox<String> jCBCliente;
         private javax.swing.JComboBox<String> jCBReserva;
-        private javax.swing.JLabel jLCliente;
         private javax.swing.JLabel jLReserva1;
         private javax.swing.JLabel jLTitulo;
         private javax.swing.JPanel jPRegistro;

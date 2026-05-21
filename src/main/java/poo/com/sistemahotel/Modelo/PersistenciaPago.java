@@ -70,7 +70,7 @@ public class PersistenciaPago {
         return pagos;
     }
     
-    public void guardarPagos(){
+    public void cargarPagos(){
            try {
 
                         if (pagos == null) {

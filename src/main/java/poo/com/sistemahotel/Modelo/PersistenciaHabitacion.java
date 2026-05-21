@@ -72,7 +72,7 @@ public class PersistenciaHabitacion {
         /**
          * Tomar la información del archivo y guardarla en el arreglo de habitaciones
          */
-        public void guardarHabitaciones() {
+        public void cargarHabitaciones() {
                 try {
 
                         if (habitaciones == null) {

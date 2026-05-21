@@ -66,4 +66,10 @@ public class GestorPago {
         public void generarComprobante(Pago pago){
                 JOptionPane.showMessageDialog(null, "Comprobante\nId: " + pago.getIdPago() + "\nFecha: " + pago.getFechaPago() + "\nReserva: " + pago.getReserva().getIdReserva() + "\nMonto: " + pago.getMonto() + "\nMetodo de pago: " + pago.getMetodoPago(), "Comprobante", 1);
         }
+
+        public PersistenciaPago getPersistenciaPago() {
+                return persistenciaPago;
+        }
+        
+        
 }

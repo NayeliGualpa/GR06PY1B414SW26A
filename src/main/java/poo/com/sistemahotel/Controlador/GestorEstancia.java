@@ -53,4 +53,10 @@ public class GestorEstancia {
                 }
                 return dias;
         }
+
+        public PersistenciaEstancia getPersistenciaEstancia() {
+                return persistenciaEstancia;
+        }
+        
+        
 }

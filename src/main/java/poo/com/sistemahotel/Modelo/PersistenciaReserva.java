@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorHabitacion;
 
 public class PersistenciaReserva {
         private String RUTA_ARCHIVO = "src/main/resources/archivos/reservas.txt"; //Archivo donde se obtendrá y guardará la información
@@ -74,20 +75,22 @@ public class PersistenciaReserva {
      */
    public void cargarReservas(){
            try{
-                        if(reservas == null){
+                        if(reservas.isEmpty()){
                                 return;
                         }
                         BufferedReader br = new BufferedReader(new FileReader(reservasArchivo));
                         String linea;
+                        GestorHabitacion gestorHabitacion = new GestorHabitacion();
                         while((linea = br.readLine()) != null){
                                 String[] informacion = linea.split(";");
-                                //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado
+                                //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado;HabitacionId
                                 String[] fechaInicio = informacion[1].split("-");
                                 String[] fechaFin = informacion[2].split("-");
                                 LocalDate fechaReserva = LocalDate.now();
                                 LocalDate fechaEntradaPrevista = LocalDate.of(Integer.parseInt(fechaInicio[0]), Integer.parseInt(fechaInicio[1]), Integer.parseInt(fechaInicio[2])); //YYYY-MM-DD
                                 LocalDate fechaSalidaPrevista = LocalDate.of(Integer.parseInt(fechaFin[0]), Integer.parseInt(fechaFin[0]), Integer.parseInt(fechaFin[0])); //YYYY-MM-DD
-                                reservas.add(new Reserva(Integer.parseInt(informacion[0]), fechaReserva, fechaEntradaPrevista, fechaSalidaPrevista, informacion[7]));
+                                Habitacion hab = gestorHabitacion.buscarHabitacion(Integer.parseInt(informacion[4]));
+                                reservas.add(new Reserva(fechaReserva, fechaEntradaPrevista, fechaSalidaPrevista, informacion[3], hab));
                         }
                 }catch(IOException ex){
                         JOptionPane.showMessageDialog(null, "Error al leer el archivo de reservas" + ex.getMessage(), "Error Archivo", 0);
@@ -102,7 +105,7 @@ public class PersistenciaReserva {
                         BufferedWriter bw = new BufferedWriter(new FileWriter(reservasArchivo));
                         for(Reserva reserva : reservas){
                                 //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado
-                                bw.append(reserva.getIdReserva() + ";" + reserva.getFechaEntradaPrevista() + ";" + reserva.getFechaSalidaPrevista() + ";" + reserva.getFechaReserva() + ";" + reserva.getEstado());
+                                bw.append(reserva.getIdReserva() + ";" + reserva.getFechaEntradaPrevista() + ";" + reserva.getFechaSalidaPrevista() + ";" + reserva.getFechaReserva() + ";" + reserva.getEstado() + ";" + reserva.getHabitacion().getNumero());
                                 bw.newLine();
                         }
                         bw.close();

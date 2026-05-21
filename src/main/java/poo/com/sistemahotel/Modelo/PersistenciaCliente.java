@@ -101,16 +101,15 @@ public class PersistenciaCliente {
          */
         public void cargarClientes() {
                 try {
-                        if (usuarios == null) {
-                                JOptionPane.showMessageDialog(null, "No existen usuarios en el registro", "Error Usuarios", 0);
-                                return;
-                        }
+                        
                         BufferedReader br = new BufferedReader(new FileReader(usuarios));
                         String linea;
                         while ((linea = br.readLine()) != null) {
+                                System.out.println(linea);
                                 String[] informacion = linea.split(";");
                                 //Orden Nombre; Apellidos; Contraseña; Cedula; Telefono; Correo, Dirección
                                 clientes.add(new Cliente(informacion[3], informacion[0], informacion[1], informacion[4], informacion[5], informacion[6], informacion[2]));
+                                
                         }
                         br.close();
                 } catch (IOException ex) {

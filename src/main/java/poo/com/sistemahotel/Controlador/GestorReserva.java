@@ -15,9 +15,9 @@ import poo.com.sistemahotel.Modelo.ValidadorReserva;
  * @author manue
  */
 public class GestorReserva {
-        PersistenciaReserva persistenciaReserva;
-        ValidadorReserva validadorReserva;
-        GestorHabitacion gestorHabitacion;
+        private PersistenciaReserva persistenciaReserva;
+        private ValidadorReserva validadorReserva;
+        private GestorHabitacion gestorHabitacion;
         
         public GestorReserva(){
                 this.persistenciaReserva = new PersistenciaReserva();
@@ -63,4 +63,10 @@ public class GestorReserva {
                 }
                 return false;
         }
+
+        public PersistenciaReserva getPersistenciaReserva() {
+                return persistenciaReserva;
+        }
+        
+        
 }

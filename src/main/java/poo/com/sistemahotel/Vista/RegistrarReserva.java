@@ -6,25 +6,31 @@ package poo.com.sistemahotel.Vista;
 
 import java.awt.Color;
 import java.time.LocalDate;
-import java.time.Month;
 import java.time.Year;
-import java.util.Calendar;
-import java.util.Date;
 import javax.swing.JOptionPane;
+import poo.com.sistemahotel.Controlador.GestorHabitacion;
+import poo.com.sistemahotel.Controlador.GestorReserva;
+import poo.com.sistemahotel.Modelo.Habitacion;
+import poo.com.sistemahotel.Modelo.Reserva;
 
 /**
  *
  * @author manue
  */
-public class Reserva extends javax.swing.JFrame {
+public class RegistrarReserva extends javax.swing.JFrame {
 
+        private GestorReserva gestorReserva;
+        private GestorHabitacion gestorHabitacion;
         /**
          * Creates new form Reserva
          */
-        public Reserva() {
+        public RegistrarReserva() {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
+                
+                this.gestorReserva = new GestorReserva();
+                this.gestorHabitacion = new GestorHabitacion();
                 
                 //Poblar combo box de dias a partir del dia actual
                 for(int dia = LocalDate.now().getDayOfMonth(); dia <= 31; dia++){
@@ -265,17 +271,19 @@ public class Reserva extends javax.swing.JFrame {
                         
                         LocalDate fechaInicio = LocalDate.of(anioInicio, mesInicio, diaInicio);
                         LocalDate fechaFin = LocalDate.of(anioFin, mesFin, diaFin);
+                        LocalDate fechaReserva = LocalDate.now();
+                        
                         //Verificar que la fecha de inicio sea antes de la fecha fin
                         if(fechaFin.isAfter(fechaInicio) || fechaFin.isEqual(fechaInicio)){
                                 String[] habitacion = jCBHabitaciones.getSelectedItem().toString().split(",");
-                                String reserva = "005;" + habitacion[0] + ";" + jCBFIDia.getSelectedItem().toString() + ";" + jCBFIMes.getSelectedItem().toString() + ";" + jCBFIAnio.getSelectedItem().toString() + ";" + jCBFFDia.getSelectedItem().toString() + ";" + jCBFFMes.getSelectedItem().toString() + ";" + jCBFFAnio.getSelectedItem().toString();
+                                Habitacion hab = gestorHabitacion.buscarHabitacion(Integer.parseInt(habitacion[0]));
+                                Reserva reserva = new Reserva(fechaReserva, fechaInicio, fechaFin, "reservado", hab);
                                 int idHabitacion = jCBHabitaciones.getSelectedIndex();
-                                Login.reservasLista.add(reserva);
-                                Login.modeloReservas.addElement(reserva);
-                                Login.escribirArchivoReservas();
-                                Login.cambiarEstadoHabitacion(habitacion[0], "ocupada");
+                                gestorReserva.getPersistenciaReserva().guardarReserva(reserva);
+                                Login.modeloReservas.addElement(reserva.getIdReserva() + ", " + reserva.getEstado());
+                                gestorHabitacion.cambiarEstadoHabitacion(hab, "ocupada");
                                 Login.modeloHabitaciones.removeElementAt(idHabitacion);
-                                Login.escribirArchivoHabitaciones();
+                                gestorHabitacion.getPersistenciaHabitacion().actualizarHabitacion(hab);
                                 limpiarInterfaz();
                                 JOptionPane.showMessageDialog(null, "Se registró la reserva", "Confirmación Registro", 1);
                         }else{
@@ -302,20 +310,21 @@ public class Reserva extends javax.swing.JFrame {
                                 }
                         }
                 } catch (ClassNotFoundException ex) {
-                        java.util.logging.Logger.getLogger(Reserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        java.util.logging.Logger.getLogger(RegistrarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 } catch (InstantiationException ex) {
-                        java.util.logging.Logger.getLogger(Reserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        java.util.logging.Logger.getLogger(RegistrarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 } catch (IllegalAccessException ex) {
-                        java.util.logging.Logger.getLogger(Reserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        java.util.logging.Logger.getLogger(RegistrarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-                        java.util.logging.Logger.getLogger(Reserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+                        java.util.logging.Logger.getLogger(RegistrarReserva.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
                 }
+                //</editor-fold>
                 //</editor-fold>
 
                 /* Create and display the form */
                 java.awt.EventQueue.invokeLater(new Runnable() {
                         public void run() {
-                                new Reserva().setVisible(true);
+                                new RegistrarReserva().setVisible(true);
                         }
                 });
         }

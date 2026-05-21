@@ -4,17 +4,17 @@
  */
 package poo.com.sistemahotel.Modelo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ValidadorEstancia {
 
     // + validarFechaIngresoReal(fechaIngresoReal: LocalDateTime): boolean
-    public boolean validarFechaIngresoReal(LocalDateTime fechaIngresoReal) {
+    public boolean validarFechaIngresoReal(LocalDate fechaIngresoReal) {
         return fechaIngresoReal != null;
     }
 
     // + validarFechaSalidaReal(fechaSalidaReal: LocalDateTime): boolean
-    public boolean validarFechaSalidaReal(LocalDateTime fechaSalidaReal) {
+    public boolean validarFechaSalidaReal(LocalDate fechaSalidaReal) {
         // Al ser una fecha de salida, podría ser nula inicialmente si el cliente no ha salido,
         // pero para efectos del validador estructural se verifica su existencia.
         return fechaSalidaReal != null;

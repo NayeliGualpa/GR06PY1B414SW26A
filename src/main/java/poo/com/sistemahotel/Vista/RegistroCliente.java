@@ -24,7 +24,7 @@ public class RegistroCliente extends javax.swing.JFrame {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
-                this.gestorCliente = new GestorCliente();
+                this.gestorCliente = GestorCliente.getInstanciaCliente();
         }
 
         /**

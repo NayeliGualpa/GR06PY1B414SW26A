@@ -18,11 +18,19 @@ public class GestorReserva {
         private PersistenciaReserva persistenciaReserva;
         private ValidadorReserva validadorReserva;
         private GestorHabitacion gestorHabitacion;
+        private static GestorReserva instanciaReserva;
         
-        public GestorReserva(){
+        private GestorReserva(){
                 this.persistenciaReserva = new PersistenciaReserva();
                 this.validadorReserva = new ValidadorReserva();
-                this.gestorHabitacion = new GestorHabitacion();
+                this.gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
+        }
+        
+        public static GestorReserva getInstanciaReserva(){
+                if(instanciaReserva == null){
+                        instanciaReserva = new GestorReserva();
+                }
+                return instanciaReserva;
         }
         
         public void registrarReserva(Reserva reserva){
@@ -66,6 +74,10 @@ public class GestorReserva {
 
         public PersistenciaReserva getPersistenciaReserva() {
                 return persistenciaReserva;
+        }
+
+        public void setPersistenciaReserva(PersistenciaReserva persistenciaReserva) {
+                this.persistenciaReserva = persistenciaReserva;
         }
         
         

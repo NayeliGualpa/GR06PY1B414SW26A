@@ -31,9 +31,9 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                this.gestorReserva = new GestorReserva();
-                this.gestorEstancia = new GestorEstancia();
-                this.gestorHabitacion = new GestorHabitacion();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
+                this.gestorEstancia = GestorEstancia.getInstanciaEstancia();
+                this.gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
                 
                 jCBEstancia.setModel(Login.modeloEstancias);
         }
@@ -63,7 +63,7 @@ public class FinalizarEstancia extends javax.swing.JFrame {
                 jPRegistro.setOpaque(false);
 
                 jCBEstancia.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBEstancia.setForeground(new java.awt.Color(255, 255, 255));
+                jCBEstancia.setForeground(new java.awt.Color(0, 0, 0));
 
                 jBConfirmar.setBackground(new java.awt.Color(153, 255, 153));
                 jBConfirmar.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N

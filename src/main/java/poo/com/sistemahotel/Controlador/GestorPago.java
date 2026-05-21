@@ -19,11 +19,19 @@ public class GestorPago {
         private ValidadorPago validadorPago;
         private PersistenciaPago persistenciaPago;
         private GestorReserva gestorReserva;
+        private static GestorPago instanciaPago;
 
-        public GestorPago() {
+        private GestorPago() {
                 this.validadorPago = new ValidadorPago();
                 this.persistenciaPago = new PersistenciaPago();
-                this.gestorReserva = new GestorReserva();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
+        }
+        
+        public static GestorPago getInstanciaPago(){
+                if(instanciaPago == null){
+                        instanciaPago = new GestorPago();
+                }
+                return instanciaPago;
         }
 
         /**
@@ -69,6 +77,10 @@ public class GestorPago {
 
         public PersistenciaPago getPersistenciaPago() {
                 return persistenciaPago;
+        }
+
+        public void setPersistenciaPago(PersistenciaPago persistenciaPago) {
+                this.persistenciaPago = persistenciaPago;
         }
         
         

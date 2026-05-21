@@ -29,8 +29,8 @@ public class RegistrarReserva extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                this.gestorReserva = new GestorReserva();
-                this.gestorHabitacion = new GestorHabitacion();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
+                this.gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
                 
                 //Poblar combo box de dias a partir del dia actual
                 for(int dia = LocalDate.now().getDayOfMonth(); dia <= 31; dia++){
@@ -92,29 +92,33 @@ public class RegistrarReserva extends javax.swing.JFrame {
                 jLDiaInicio.setForeground(new java.awt.Color(0, 0, 0));
                 jLDiaInicio.setText("Día");
 
+                jCBFIDia.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFIDia.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFIDia.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFIDia.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLHabitacion1.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLHabitacion1.setForeground(new java.awt.Color(0, 0, 0));
                 jLHabitacion1.setText("Habitación");
 
+                jCBHabitaciones.setBackground(new java.awt.Color(255, 255, 255));
                 jCBHabitaciones.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBHabitaciones.setForeground(new java.awt.Color(255, 255, 255));
+                jCBHabitaciones.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLFechaInicio1.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLFechaInicio1.setForeground(new java.awt.Color(0, 0, 0));
                 jLFechaInicio1.setText("Fecha inicio");
 
+                jCBFIMes.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFIMes.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFIMes.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFIMes.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLMesInicio.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLMesInicio.setForeground(new java.awt.Color(0, 0, 0));
                 jLMesInicio.setText("Mes");
 
+                jCBFIAnio.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFIAnio.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFIAnio.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFIAnio.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLAnioInicio.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLAnioInicio.setForeground(new java.awt.Color(0, 0, 0));
@@ -124,22 +128,25 @@ public class RegistrarReserva extends javax.swing.JFrame {
                 jLFechaFin.setForeground(new java.awt.Color(0, 0, 0));
                 jLFechaFin.setText("Fecha fin");
 
+                jCBFFDia.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFFDia.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFFDia.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFFDia.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLDiaFin.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLDiaFin.setForeground(new java.awt.Color(0, 0, 0));
                 jLDiaFin.setText("Día");
 
+                jCBFFMes.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFFMes.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFFMes.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFFMes.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLMesFin.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLMesFin.setForeground(new java.awt.Color(0, 0, 0));
                 jLMesFin.setText("Mes");
 
+                jCBFFAnio.setBackground(new java.awt.Color(255, 255, 255));
                 jCBFFAnio.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBFFAnio.setForeground(new java.awt.Color(255, 255, 255));
+                jCBFFAnio.setForeground(new java.awt.Color(0, 0, 0));
 
                 jLAnioFin.setFont(new java.awt.Font("Segoe Print", 1, 12)); // NOI18N
                 jLAnioFin.setForeground(new java.awt.Color(0, 0, 0));

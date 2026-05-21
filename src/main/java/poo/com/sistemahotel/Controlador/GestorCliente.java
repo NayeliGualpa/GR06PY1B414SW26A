@@ -17,11 +17,19 @@ public class GestorCliente {
 
         private ValidadorCliente validadorCliente;
         private PersistenciaCliente persistenciaCliente;
+        private static GestorCliente instanciaCliente;
+        
+        public static GestorCliente getInstanciaCliente(){
+                if(instanciaCliente == null){
+                        instanciaCliente = new GestorCliente();
+                }
+                return instanciaCliente;
+        }
 
         /**
          * Constructor
          */
-        public GestorCliente() {
+        private GestorCliente() {
                 this.validadorCliente = new ValidadorCliente();
                 this.persistenciaCliente = new PersistenciaCliente();
         }
@@ -110,6 +118,10 @@ public class GestorCliente {
 
         public PersistenciaCliente getPersistenciaCliente() {
                 return persistenciaCliente;
+        }
+
+        public void setPersistenciaCliente(PersistenciaCliente persistenciaCliente) {
+                this.persistenciaCliente = persistenciaCliente;
         }
 
         

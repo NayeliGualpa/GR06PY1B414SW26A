@@ -29,8 +29,8 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                this.gestorReserva = new GestorReserva();
-                this.gestorEstancia = new GestorEstancia();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
+                this.gestorEstancia = GestorEstancia.getInstanciaEstancia();
                 
                 jCBReserva.setModel(Login.modeloReservas);
         }
@@ -58,7 +58,7 @@ public class RegistrarIngreso extends javax.swing.JFrame {
                 jPRegistro.setOpaque(false);
 
                 jCBReserva.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBReserva.setForeground(new java.awt.Color(255, 255, 255));
+                jCBReserva.setForeground(new java.awt.Color(0, 0, 0));
 
                 jBConfirmar.setBackground(new java.awt.Color(153, 255, 153));
                 jBConfirmar.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N

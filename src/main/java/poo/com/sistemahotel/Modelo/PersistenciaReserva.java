@@ -80,7 +80,7 @@ public class PersistenciaReserva {
                         }
                         BufferedReader br = new BufferedReader(new FileReader(reservasArchivo));
                         String linea;
-                        GestorHabitacion gestorHabitacion = new GestorHabitacion();
+                        GestorHabitacion gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
                         while((linea = br.readLine()) != null){
                                 String[] informacion = linea.split(";");
                                 //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado;HabitacionId

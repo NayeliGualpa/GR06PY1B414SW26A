@@ -17,11 +17,19 @@ public class GestorEstancia {
         private ValidadorEstancia validadorEstancia;
         private PersistenciaEstancia persistenciaEstancia;
         private GestorMulta gestorMulta;
+        private static GestorEstancia instanciaEstancia;
         
-        public GestorEstancia(){
+        private GestorEstancia(){
                 this.validadorEstancia = new ValidadorEstancia();
                 this.persistenciaEstancia = new PersistenciaEstancia();
                 this.gestorMulta = new GestorMulta();
+        }
+        
+        public static GestorEstancia getInstanciaEstancia(){
+                if(instanciaEstancia == null){
+                        instanciaEstancia = new GestorEstancia();
+                }
+                return instanciaEstancia;
         }
         
         public void registrarIngreso(Estancia estancia){
@@ -56,6 +64,10 @@ public class GestorEstancia {
 
         public PersistenciaEstancia getPersistenciaEstancia() {
                 return persistenciaEstancia;
+        }
+
+        public void setPersistenciaEstancia(PersistenciaEstancia persistenciaEstancia) {
+                this.persistenciaEstancia = persistenciaEstancia;
         }
         
         

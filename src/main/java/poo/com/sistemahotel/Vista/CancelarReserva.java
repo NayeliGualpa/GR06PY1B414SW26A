@@ -27,8 +27,8 @@ public class CancelarReserva extends javax.swing.JFrame {
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
                 
-                this.gestorReserva = new GestorReserva();
-                this.gestorHabitacion = new GestorHabitacion();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
+                this.gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
                 
                 jCBReserva.setModel(Login.modeloReservas);
         }
@@ -57,8 +57,9 @@ public class CancelarReserva extends javax.swing.JFrame {
                 jLReserva.setForeground(new java.awt.Color(0, 0, 0));
                 jLReserva.setText("Reserva");
 
+                jCBReserva.setBackground(new java.awt.Color(255, 255, 255));
                 jCBReserva.setFont(new java.awt.Font("Segoe Print", 0, 12)); // NOI18N
-                jCBReserva.setForeground(new java.awt.Color(255, 255, 255));
+                jCBReserva.setForeground(new java.awt.Color(0, 0, 0));
 
                 jBConfirmar.setBackground(new java.awt.Color(153, 255, 153));
                 jBConfirmar.setFont(new java.awt.Font("Segoe Print", 1, 14)); // NOI18N

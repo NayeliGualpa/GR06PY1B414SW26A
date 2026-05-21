@@ -40,10 +40,10 @@ public class Login extends javax.swing.JFrame {
                 modeloReservas = new DefaultComboBoxModel<>();
                 modeloEstancias = new DefaultComboBoxModel<>();
 
-                this.gestorCliente = new GestorCliente();
-                this.gestorHabitacion = new GestorHabitacion();
-                this.gestorEstancia = new GestorEstancia();
-                this.gestorReserva = new GestorReserva();
+                this.gestorCliente = GestorCliente.getInstanciaCliente();
+                this.gestorHabitacion = GestorHabitacion.getInstanciaHabitacion();
+                this.gestorEstancia = GestorEstancia.getInstanciaEstancia();
+                this.gestorReserva = GestorReserva.getInstanciaReserva();
 
                 //Cargar informacion de comboBox
                 modeloHabitaciones.addElement("Seleccione...");
@@ -242,7 +242,6 @@ public class Login extends javax.swing.JFrame {
                         }else{
                                 //Verificar que el cliente existe y que ingresa con su correo y contraseña
                                 for (Cliente cliente : gestorCliente.getPersistenciaCliente().listarClientes()) {
-                                        System.out.println(cliente);
                                         if (cliente.getCorreo().equals(jTCorreo.getText().trim()) && cliente.getPassword().equals(password)) {
                                                 usuarioExiste = true;
                                                 MenuPrincipalCliente cl = new MenuPrincipalCliente();

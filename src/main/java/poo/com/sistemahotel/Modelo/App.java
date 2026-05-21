@@ -4,7 +4,6 @@
 
 package poo.com.sistemahotel.Modelo;
 
-import java.util.ArrayList;
 import poo.com.sistemahotel.Controlador.*;
 import poo.com.sistemahotel.Vista.Login;
 
@@ -15,6 +14,7 @@ import poo.com.sistemahotel.Vista.Login;
 public class App {
 
     public static void main(String[] args) {
+            
         // 1. INICIALIZAR LA PERSISTENCIA (Modelo)
         PersistenciaReserva pReserva = new PersistenciaReserva();
         PersistenciaMulta pMulta = new PersistenciaMulta();
@@ -31,12 +31,18 @@ public class App {
         pPago.cargarPagos();
 
         // 3. INICIALIZAR CONTROLADORES (Pasándoles sus datos ya listos)
-            GestorCliente gCliente = new GestorCliente();
-            GestorHabitacion gHabitacion = new GestorHabitacion();
-            GestorEstancia gEstancia = new GestorEstancia();
-            GestorReserva gReserva = new GestorReserva();
-            GestorPago gPago = new GestorPago();
+            GestorCliente gCliente = GestorCliente.getInstanciaCliente();
+            GestorHabitacion gHabitacion = GestorHabitacion.getInstanciaHabitacion();
+            GestorEstancia gEstancia = GestorEstancia.getInstanciaEstancia();
+            GestorReserva gReserva = GestorReserva.getInstanciaReserva();
+            GestorPago gPago = GestorPago.getInstanciaPago();
             GestorMulta gMulta = new GestorMulta();
+            
+            gCliente.setPersistenciaCliente(pCliente);
+            gEstancia.setPersistenciaEstancia(pEstancia);
+            gHabitacion.setPersistenciaHabitacion(pHabitacion);
+            gPago.setPersistenciaPago(pPago);
+            gReserva.setPersistenciaReserva(pReserva);
 
         // 4. INICIALIZAR LAS VISTAS
         Login vistaPrincipal = new Login();

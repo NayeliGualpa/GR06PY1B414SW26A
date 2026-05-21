@@ -16,10 +16,18 @@ public class GestorHabitacion {
 
         private ValidadorHabitacion validadorHabitacion;
         private PersistenciaHabitacion persistenciaHabitacion;
+        private static GestorHabitacion instanciaHabitacion;
         
-        public GestorHabitacion(){
+        private GestorHabitacion(){
                 this.validadorHabitacion = new ValidadorHabitacion();
                 this.persistenciaHabitacion = new PersistenciaHabitacion();
+        }
+        
+        public static GestorHabitacion getInstanciaHabitacion(){
+                if(instanciaHabitacion == null){
+                        instanciaHabitacion = new GestorHabitacion();
+                }
+                return instanciaHabitacion;
         }
         
         public boolean verificarDisponibilidad(Habitacion habitacion) {
@@ -49,6 +57,10 @@ public class GestorHabitacion {
 
         public PersistenciaHabitacion getPersistenciaHabitacion() {
                 return persistenciaHabitacion;
+        }
+
+        public void setPersistenciaHabitacion(PersistenciaHabitacion persistenciaHabitacion) {
+                this.persistenciaHabitacion = persistenciaHabitacion;
         }
         
         

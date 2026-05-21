@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 public class PersistenciaEstancia {
         
-        private String RUTA_ARCHIVO = "src/main/resources/archivos/estancias.txt"; //Archivo donde se obtendrá y guardará la información
+        private String RUTA_ARCHIVO = "archivos/estancias.txt"; //Archivo donde se obtendrá y guardará la información
         private File estanciasArchivo;
         
     // Asociación: Una PersistenciaEstancia almacena muchas estancias (*)

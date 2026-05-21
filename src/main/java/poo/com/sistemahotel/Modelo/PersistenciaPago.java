@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 
 public class PersistenciaPago {
         
-        private String RUTA_ARCHIVO = "src/main/resources/archivos/pagos.txt"; //Archivo donde se obtendrá y guardará la información
+        private String RUTA_ARCHIVO = "archivos/pagos.txt"; //Archivo donde se obtendrá y guardará la información
         private File pagosArchivo;
         
     // Asociación:Una PersistenciaPago almacena muchos pagos (*)

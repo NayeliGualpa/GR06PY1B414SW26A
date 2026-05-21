@@ -1,0 +1,4 @@
+Manuel Alejandro;Sanchez Sierra;1234;1803970282;000000000;manuelsanchez059@gmail.com;Quito
+Maria;Perez;123456;1803970266;00000000;emiliaperez@gmail.com;Ambato
+Juan;Diego;abcd;12321423;0;example@gmail.com;Tena
+Hola;Mundo;123;1234567890;1234567890;correo@outlook.es;Quito

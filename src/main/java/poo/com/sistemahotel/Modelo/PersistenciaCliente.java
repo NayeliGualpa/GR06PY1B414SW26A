@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 
 public class PersistenciaCliente {
 
-        private String RUTA_ARCHIVO = "src/main/resources/archivos/usuarios.txt"; //Archivo donde se obtendrá y guardará la información
+        private String RUTA_ARCHIVO = "archivos/usuarios.txt"; //Archivo donde se obtendrá y guardará la información
         private File usuarios;
         //  Asociación:Una PersistenciaCliente almacena muchos clientes (*)
         private ArrayList<Cliente> clientes;

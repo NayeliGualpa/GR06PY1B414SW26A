@@ -1,0 +1,4 @@
+1;suite;50.0;disponible
+2;individual;20.0;disponible
+3;doble;30.0;ocupada
+4;suite ejecutiva;60.0;disponible

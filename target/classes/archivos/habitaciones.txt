@@ -1,4 +1,4 @@
-001;suite;50;ocupada
-002;individual;20;disponible
-003;doble;30;disponible
-004;suite ejecutiva;60;disponible
+1;suite;50.0;ocupada
+2;individual;20.0;ocupada
+3;doble;30.0;disponible
+4;suite ejecutiva;60.0;disponible

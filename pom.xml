@@ -8,7 +8,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>poo.com.sistemahotel.Vista.Login</exec.mainClass>
+        <exec.mainClass>poo.com.sistemahotel.Modelo.App</exec.mainClass>
     </properties>
     
     <build>
@@ -22,7 +22,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!-- Aquí vinculamos tu pantalla de Login como la principal -->
-                            <mainClass>poo.com.sistemahotel.Vista.Login</mainClass>
+                            <mainClass>poo.com.sistemahotel.Modelo.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import poo.com.sistemahotel.Controlador.GestorHabitacion;
 
 public class PersistenciaReserva {
-        private String RUTA_ARCHIVO = "src/main/resources/archivos/reservas.txt"; //Archivo donde se obtendrá y guardará la información
+        private String RUTA_ARCHIVO = "archivos/reservas.txt"; //Archivo donde se obtendrá y guardará la información
         private File reservasArchivo;
         
     // Asociación: Una PersistenciaReserva almacena muchas reservas (*)

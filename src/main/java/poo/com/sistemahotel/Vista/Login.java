@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
@@ -55,7 +56,7 @@ public class Login extends javax.swing.JFrame {
                 initComponents();
                 setResizable(false);
                 getContentPane().setBackground(new Color(204, 198, 180));
-               
+                System.out.println(LocalDate.now());
                 
                 reservas = new File("src/main/resources/archivos/reservas.txt");
                 habitaciones = new File("src/main/resources/archivos/habitaciones.txt");

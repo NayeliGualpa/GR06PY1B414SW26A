@@ -6,10 +6,10 @@ package poo.com.sistemahotel.Modelo;
 
 import java.util.ArrayList;
 public class PersistenciaMulta {
-    // Asociación: Una PersistenciaMulta almacena muchas multas (*)
+// Asociación: Una PersistenciaMulta almacena muchas multas (*)
     private ArrayList<Multa> multas=
             new ArrayList<>();
-
+    
        // Guardar, Buscar, Actualizar, Eliminar y Listar Multas
     public void guardarMulta(Multa m){
         multas.add(m);

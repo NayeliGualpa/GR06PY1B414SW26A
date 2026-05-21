@@ -81,10 +81,12 @@ public class PersistenciaReserva {
                         String linea;
                         while((linea = br.readLine()) != null){
                                 String[] informacion = linea.split(";");
-                                //Orden numero;diaInicio;mesInicio;anioInicio;diaFin;mesFin;anioFin;estado
+                                //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado
+                                String[] fechaInicio = informacion[1].split("-");
+                                String[] fechaFin = informacion[2].split("-");
                                 LocalDate fechaReserva = LocalDate.now();
-                                LocalDate fechaEntradaPrevista = LocalDate.of(Integer.parseInt(informacion[3]), Integer.parseInt(informacion[2]), Integer.parseInt(informacion[1]));
-                                LocalDate fechaSalidaPrevista = LocalDate.of(Integer.parseInt(informacion[6]), Integer.parseInt(informacion[5]), Integer.parseInt(informacion[4]));
+                                LocalDate fechaEntradaPrevista = LocalDate.of(Integer.parseInt(fechaInicio[0]), Integer.parseInt(fechaInicio[1]), Integer.parseInt(fechaInicio[2])); //YYYY-MM-DD
+                                LocalDate fechaSalidaPrevista = LocalDate.of(Integer.parseInt(fechaFin[0]), Integer.parseInt(fechaFin[0]), Integer.parseInt(fechaFin[0])); //YYYY-MM-DD
                                 reservas.add(new Reserva(Integer.parseInt(informacion[0]), fechaReserva, fechaEntradaPrevista, fechaSalidaPrevista, informacion[7]));
                         }
                 }catch(IOException ex){
@@ -99,7 +101,7 @@ public class PersistenciaReserva {
            try {
                         BufferedWriter bw = new BufferedWriter(new FileWriter(reservasArchivo));
                         for(Reserva reserva : reservas){
-                                //Orden numero;diaInicio;mesInicio;anioInicio;diaFin;mesFin;anioFin;estado
+                                //Orden numero;anioInicio-mesInicio-diaInicio;anioFin-mesFin-diaFin;estado
                                 bw.append(reserva.getIdReserva() + ";" + reserva.getFechaEntradaPrevista() + ";" + reserva.getFechaSalidaPrevista() + ";" + reserva.getFechaReserva() + ";" + reserva.getEstado());
                                 bw.newLine();
                         }

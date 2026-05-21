@@ -7,30 +7,35 @@ package poo.com.sistemahotel.Controlador;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import poo.com.sistemahotel.Modelo.Pago;
+import poo.com.sistemahotel.Modelo.PersistenciaPago;
 import poo.com.sistemahotel.Modelo.Reserva;
+import poo.com.sistemahotel.Modelo.ValidadorPago;
 
 /**
  *
  * @author manue
  */
 public class GestorPago {
-        private ArrayList<Pago> pagos;
+        private ValidadorPago validadorPago;
+        private PersistenciaPago persistenciaPago;
+        private GestorReserva gestorReserva;
 
         public GestorPago() {
-                this.pagos = pagos;
+                this.validadorPago = new ValidadorPago();
+                this.persistenciaPago = new PersistenciaPago();
+                this.gestorReserva = new GestorReserva();
         }
 
-        public ArrayList<Pago> getPagos() {
-                return pagos;
-        }
-        
         /**
-         * Registrar un nuevo pago en el arreglo
+         * Registrar un nuevo pago en el archivo
          * @param nuevoPago 
          */
         public void registrarPago(Pago nuevoPago){
-                pagos.add(nuevoPago);
-                JOptionPane.showMessageDialog(null, "Pago agregado", "Confirmación Pago", 1);
+                if(validadorPago.validarPago(nuevoPago)){
+                        if(nuevoPago != null){
+                                persistenciaPago.guardarPago(nuevoPago);
+                        }
+                }
         }
         
         /**
@@ -39,15 +44,19 @@ public class GestorPago {
          * @return 
          */
         public Boolean verificarPagoReserva(Reserva reserva){
-                Boolean pagoReserva = false;
                 if(reserva.getEstado().equalsIgnoreCase("pagado")){
-                        pagoReserva = true;
+                        return true;
                 }
-                return pagoReserva;
+                return false;
         }
         
         public Boolean verificarPagoCompleto(Pago pago){
-                return true;
+                if(validadorPago.validarPago(pago)){
+                        if(pago.getReserva().getEstado().equalsIgnoreCase("pagado")){
+                                return true;
+                        }
+                }
+                return false;
         }
         
         /**
@@ -55,6 +64,6 @@ public class GestorPago {
          * @param pago 
          */
         public void generarComprobante(Pago pago){
-                JOptionPane.showMessageDialog(null, "Comprobante\nId: " + pago.getIdPago() + "\nFecha: " + pago.getFechaPago() + "\nMonto: " + pago.getMonto() + "\nMetodo de pago: " + pago.getMetodoPago(), "Comprobante", 1);
+                JOptionPane.showMessageDialog(null, "Comprobante\nId: " + pago.getIdPago() + "\nFecha: " + pago.getFechaPago() + "\nReserva: " + pago.getReserva().getIdReserva() + "\nMonto: " + pago.getMonto() + "\nMetodo de pago: " + pago.getMetodoPago(), "Comprobante", 1);
         }
 }

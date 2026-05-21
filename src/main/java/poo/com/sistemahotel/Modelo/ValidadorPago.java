@@ -4,12 +4,12 @@
  */
 package poo.com.sistemahotel.Modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ValidadorPago {
 
     // + validarFechaPago(fechaPago: Date): boolean
-    public boolean validarFechaPago(Date fechaPago) {
+    public boolean validarFechaPago(LocalDate fechaPago) {
         return fechaPago != null;
     }
 

@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 public class PersistenciaCliente {
 
         private String RUTA_ARCHIVO = "src/main/resources/archivos/usuarios.txt"; //Archivo donde se obtendrá y guardará la información
-        private static File usuarios;
+        private File usuarios;
         //  Asociación:Una PersistenciaCliente almacena muchos clientes (*)
         private ArrayList<Cliente> clientes;
 
@@ -97,7 +97,7 @@ public class PersistenciaCliente {
         /**
          * Cargar los usuarios desde el archivo y guardarlos en el arreglo de clientes
          *
-         * @param RUTA_ARCHIVO
+         *
          */
         public void cargarClientes() {
                 try {

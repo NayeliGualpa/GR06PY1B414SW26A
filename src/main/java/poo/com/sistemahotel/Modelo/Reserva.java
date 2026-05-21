@@ -4,18 +4,18 @@
  */
 package poo.com.sistemahotel.Modelo;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 public class Reserva {
     // Atributos
     private int idReserva;
-    private LocalDateTime fechaReserva;
-    private LocalDateTime fechaEntradaPrevista;
-    private LocalDateTime fechaSalidaPrevista;
+    private LocalDate fechaReserva;
+    private LocalDate fechaEntradaPrevista;
+    private LocalDate fechaSalidaPrevista;
     private String estado;
 
     // Método de Constructor
-    public Reserva(int idReserva, LocalDateTime fechaReserva, LocalDateTime fechaEntradaPrevista,
-         LocalDateTime fechaSalidaPrevista, String estado){
+    public Reserva(int idReserva, LocalDate fechaReserva, LocalDate fechaEntradaPrevista,
+         LocalDate fechaSalidaPrevista, String estado){
         this.idReserva=idReserva;
         this.fechaReserva=fechaReserva;
         this.fechaEntradaPrevista=fechaEntradaPrevista;
@@ -30,22 +30,22 @@ public class Reserva {
     public void setIdReserva(int idReserva) {
         this.idReserva = idReserva;
     }
-    public LocalDateTime getFechaReserva() {
+    public LocalDate getFechaReserva() {
         return fechaReserva;
     }
-    public void setFechaReserva(LocalDateTime fechaReserva) {
+    public void setFechaReserva(LocalDate fechaReserva) {
         this.fechaReserva = fechaReserva;
     }
-    public LocalDateTime getFechaEntradaPrevista() {
+    public LocalDate getFechaEntradaPrevista() {
         return fechaEntradaPrevista;
     }
-    public void setFechaEntradaPrevista(LocalDateTime fechaEntradaPrevista) {
+    public void setFechaEntradaPrevista(LocalDate fechaEntradaPrevista) {
         this.fechaEntradaPrevista = fechaEntradaPrevista;
     }
-    public LocalDateTime getFechaSalidaPrevista() {
+    public LocalDate getFechaSalidaPrevista() {
         return fechaSalidaPrevista;
     }
-    public void setFechaSalidaPrevista(LocalDateTime fechaSalidaPrevista) {
+    public void setFechaSalidaPrevista(LocalDate fechaSalidaPrevista) {
         this.fechaSalidaPrevista = fechaSalidaPrevista;
     }
     public String getEstado() {

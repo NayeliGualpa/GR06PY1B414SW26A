@@ -22,7 +22,7 @@ public class GestorEstancia {
         private GestorEstancia(){
                 this.validadorEstancia = new ValidadorEstancia();
                 this.persistenciaEstancia = new PersistenciaEstancia();
-                this.gestorMulta = new GestorMulta();
+                this.gestorMulta = GestorMulta.getInstanciaMulta();
         }
         
         public static GestorEstancia getInstanciaEstancia(){

@@ -10,13 +10,15 @@ public class Multa {
     private String motivo;
     private double monto;
     private String estado;
+    private Estancia estancia;
 
     // Metodo deConstructor
-    public Multa(int idMulta,String motivo, double monto,String estado){
+    public Multa(int idMulta,String motivo, double monto,String estado, Estancia estancia){
         this.idMulta=idMulta;
         this.motivo=motivo;
         this.monto=monto;
         this.estado=estado;
+        this.estancia = estancia;
     }
 
     // Metodo deGetters y Setters
@@ -44,5 +46,14 @@ public class Multa {
     public void setEstado(String estado) {
         this.estado = estado;
     }
+
+        public Estancia getEstancia() {
+                return estancia;
+        }
+
+        public void setEstancia(Estancia estancia) {
+                this.estancia = estancia;
+        }
+    
 }
 

@@ -36,13 +36,14 @@ public class App {
             GestorEstancia gEstancia = GestorEstancia.getInstanciaEstancia();
             GestorReserva gReserva = GestorReserva.getInstanciaReserva();
             GestorPago gPago = GestorPago.getInstanciaPago();
-            GestorMulta gMulta = new GestorMulta();
+            GestorMulta gMulta = GestorMulta.getInstanciaMulta();
             
             gCliente.setPersistenciaCliente(pCliente);
             gEstancia.setPersistenciaEstancia(pEstancia);
             gHabitacion.setPersistenciaHabitacion(pHabitacion);
             gPago.setPersistenciaPago(pPago);
             gReserva.setPersistenciaReserva(pReserva);
+            gMulta.setPersistenciaMulta(pMulta);
 
         // 4. INICIALIZAR LAS VISTAS
         Login vistaPrincipal = new Login();
